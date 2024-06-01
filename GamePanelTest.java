@@ -62,7 +62,7 @@ public class GamePanelTest {
     @Test
     public void testCheckWallCollision() {
         GamePanel gp = new GamePanel();
-        // hello
+        
         gp.setSnakePosition(-gp.getUnitSize(), gp.getSnakeY()[0]);
 
         gp.checkCollisions();
