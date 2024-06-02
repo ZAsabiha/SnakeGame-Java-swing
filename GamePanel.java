@@ -10,9 +10,8 @@ class GamePanel extends JPanel implements ActionListener {
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 500;
     private static final int UNIT_SIZE = 30;
-    Image background;
     private static final int GAME_UNITS = (WIDTH / UNIT_SIZE) * (HEIGHT / UNIT_SIZE);
-
+    Image background;
     private GameLevel[] levels = {
             new GameLevel(1, 300, 3, 10),
             new GameLevel(2, 250, 4, 15),
@@ -58,7 +57,7 @@ class GamePanel extends JPanel implements ActionListener {
         initLevel();
     }
 
-  
+    // Getters and Setters for Unit Testing
     public int getSnakeLength() {
         return snakeLength;
     }
@@ -139,15 +138,15 @@ class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    private void initLevel() {
+    public void initLevel() {
         if (currentLevelIndex < levels.length) {
             GameLevel currentLevel = levels[currentLevelIndex];
             snakeLength = currentLevel.getInitialSnakeLength();
             snakeSpeed = currentLevel.getSnakeSpeed();
             snakeDirection = KeyEvent.VK_RIGHT;
 
-            int centerX = WIDTH / 2;
-            int centerY = HEIGHT / 2;
+            int centerX = (WIDTH / 2) / UNIT_SIZE * UNIT_SIZE;
+            int centerY = (HEIGHT / 2) / UNIT_SIZE * UNIT_SIZE;
 
             for (int i = 0; i < snakeLength; i++) {
                 snakeX[i] = centerX - (i * UNIT_SIZE);
@@ -165,8 +164,8 @@ class GamePanel extends JPanel implements ActionListener {
     }
 
     private void spawnFood() {
-        foodX = (random.nextInt(WIDTH / UNIT_SIZE) * UNIT_SIZE) / UNIT_SIZE * UNIT_SIZE;
-        foodY = (random.nextInt(HEIGHT / UNIT_SIZE) * UNIT_SIZE) / UNIT_SIZE * UNIT_SIZE;
+        foodX = random.nextInt(WIDTH / UNIT_SIZE) * UNIT_SIZE;
+        foodY = random.nextInt(HEIGHT / UNIT_SIZE) * UNIT_SIZE;
         foodColor = foodColors[random.nextInt(foodColors.length)];
 
         System.out.println("Food spawned at: (" + foodX + ", " + foodY + ")");
@@ -214,7 +213,18 @@ class GamePanel extends JPanel implements ActionListener {
                 break;
         }
 
-        System.out.println("Snake head at: (" + snakeX[0] + ", " + snakeY[0] + ")");
+        // Correct the snake's head position to stay within the game bounds
+        if (snakeX[0] < 0) {
+            snakeX[0] = 0;
+        } else if (snakeX[0] >= WIDTH) {
+            snakeX[0] = WIDTH - UNIT_SIZE;
+        }
+        if (snakeY[0] < 0) {
+            snakeY[0] = 0;
+        } else if (snakeY[0] >= HEIGHT) {
+            snakeY[0] = HEIGHT - UNIT_SIZE;
+        }
+        System.out.printf("Snake's head at (%d,%d); food at (%d,%d)\n", snakeX[0], snakeY[0], foodX, foodY);
     }
 
     public void checkFood() {

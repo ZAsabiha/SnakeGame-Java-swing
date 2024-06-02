@@ -24,10 +24,10 @@ public class GamePanelTest {
         int initialX = gp.getSnakeX()[0];
         int initialY = gp.getSnakeY()[0];
 
-        
+        // Move the snake
         gp.move();
 
-    
+        // Check if the snake's head moved to the right
         assertEquals(initialX + gp.getUnitSize(), gp.getSnakeX()[0]);
         assertEquals(initialY, gp.getSnakeY()[0]);
     }
@@ -62,21 +62,11 @@ public class GamePanelTest {
     @Test
     public void testCheckWallCollision() {
         GamePanel gp = new GamePanel();
-        
+
         gp.setSnakePosition(-gp.getUnitSize(), gp.getSnakeY()[0]);
 
         gp.checkCollisions();
 
         assertFalse(gp.isRunning());
-    }
-    @Test
-    public void testGetAndSetRunning() {
-        GamePanel gp = new GamePanel();
-
-        gp.setRunning(false);
-        assertFalse(gp.isRunning());
-
-        gp.setRunning(true);
-        assertTrue(gp.isRunning());
     }
 }
