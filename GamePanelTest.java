@@ -17,17 +17,16 @@ public class GamePanelTest {
     public void testMoveSnake() {
         GamePanel gp = new GamePanel();
 
-        // Ensure the game is running and the direction is set correctly
+        
         gp.setRunning(true);
         gp.setSnakeDirection(KeyEvent.VK_RIGHT);
 
         int initialX = gp.getSnakeX()[0];
         int initialY = gp.getSnakeY()[0];
 
-        // Move the snake
         gp.move();
 
-        // Check if the snake's head moved to the right
+        
         assertEquals(initialX + gp.getUnitSize(), gp.getSnakeX()[0]);
         assertEquals(initialY, gp.getSnakeY()[0]);
     }

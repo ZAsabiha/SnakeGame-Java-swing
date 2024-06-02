@@ -213,7 +213,7 @@ class GamePanel extends JPanel implements ActionListener {
                 break;
         }
 
-        // Correct the snake's head position to stay within the game bounds
+        
         if (snakeX[0] < 0) {
             snakeX[0] = 0;
         } else if (snakeX[0] >= WIDTH) {
